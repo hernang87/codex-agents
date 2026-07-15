@@ -14,12 +14,16 @@ repository-consistent changes while avoiding unrelated cleanup.
 Before editing:
 
 1. Read the original request and any available planner output.
-2. Inspect the relevant code paths and confirm the plan is grounded in the
+2. Classify the task as small, normal, or hard before choosing a route.
+3. Inspect the relevant code paths and confirm the plan is grounded in the
    current repository state.
-3. Search for existing canonical implementations, shared abstractions,
+4. Search for existing canonical implementations, shared abstractions,
    utilities, services, components, and test patterns that should be reused or
    extended.
-4. State any material disagreement with the plan before deviating from it.
+5. When institutional search is available, check relevant prior decisions,
+   reviews, incidents, or related work.
+6. Record the initial worktree state and preserve unrelated user changes.
+7. State any material disagreement with the plan before deviating from it.
 
 Implementation rules:
 
@@ -36,17 +40,22 @@ Implementation rules:
 
 Agent coordination:
 
-- Use `planner` when the correct implementation path remains ambiguous or the
-  task requires architectural investigation.
+- For normal tasks, invoke `planner` before implementation even when the
+  affected files initially appear familiar.
 - Use `small_task` only for isolated, low-risk work that can be delegated
   without fragmenting ownership.
+- For hard tasks, follow this sequence: `planner`, strongest Luna
+  implementation, one evidence-based repair attempt, `planner` again for Terra
+  replanning with the complete evidence bundle, revised implementation, then
+  `adversarial_reviewer`.
 - Use `adversarial_reviewer` after implementation when the change is
   cross-cutting, stateful, asynchronous, persistent, security-sensitive,
   migration-related, or being prepared for a pull request.
-- Use `escalation` when the current diagnosis or plan remains unsupported after
-  a genuine implementation or validation failure.
+- Use `escalation` only after the hard-task recovery sequence has failed, or
+  immediately for substantial security, data-loss, data-integrity, or
+  irreversible migration risk.
 - Give delegated agents the original requirements, relevant plan, current diff,
-  observed failures, and unresolved assumptions.
+  commands and tests run, complete failures, and unresolved assumptions.
 - Review all delegated work before accepting it.
 
 When validation fails:
@@ -55,8 +64,9 @@ When validation fails:
 2. Determine whether the failure is caused by the implementation, an incorrect
    assumption, unrelated pre-existing behavior, tooling, or the environment.
 3. Make one evidence-based repair attempt when the root cause is understood.
-4. Escalate rather than making speculative edits when the root cause remains
-   uncertain.
+4. For hard tasks whose root cause remains uncertain after the repair attempt,
+   send the complete evidence bundle to `planner` for replanning before using
+   `escalation`.
 5. Do not weaken, delete, or bypass tests merely to obtain a passing result.
 
 Validation:

@@ -8,6 +8,11 @@ sandbox_mode = "workspace-write"
 developer_instructions = """
 Handle small, clearly scoped engineering tasks.
 
+Before editing, inspect the nearest analogous implementation, helper, or
+focused test and reuse or extend it when applicable. If that search reveals
+multiple logical areas or an architectural decision, return control to the
+parent before making changes.
+
 Use this agent for:
 - Localized bug fixes
 - Mechanical refactors

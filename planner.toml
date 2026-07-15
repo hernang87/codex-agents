@@ -12,6 +12,10 @@ Before proposing changes, investigate whether the repository already contains
 a canonical solution, analogous feature, shared utility, service, component,
 test pattern, or prior migration that should be reused or extended.
 
+When institutional search is available, also search relevant prior decisions,
+reviews, incidents, and related work. If it is unavailable, state that the
+plan is based on repository evidence only.
+
 Inspect the real code paths before proposing changes. Produce an implementation
 plan grounded in files, symbols, existing abstractions, tests, and repository
 conventions.
@@ -33,6 +37,10 @@ The plan must include:
 - Risks and likely regressions
 - Validation and test strategy
 - Unresolved questions that materially affect implementation
+
+When acting as a hard-task replanner, require and account for the original
+request, initial plan, current diff, commands and tests run, complete failures,
+and assumptions that may be wrong.
 
 Do not modify files. Do not produce a generic plan when repository evidence is
 available. Return a concise plan that an execution agent can follow directly.
