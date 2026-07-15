@@ -6,6 +6,7 @@ import tomllib
 
 
 ROOT = Path(__file__).resolve().parent.parent
+PROFILES_DIR = ROOT / "codex"
 EXPECTED_NAMES = {
     "adversarial-review.toml": "adversarial_reviewer",
     "escalation.toml": "escalation",
@@ -27,7 +28,7 @@ ALLOWED_REASONING_EFFORTS = {"low", "medium", "high", "xhigh", "max"}
 
 def main() -> int:
     errors: list[str] = []
-    actual_files = {path.name for path in ROOT.glob("*.toml")}
+    actual_files = {path.name for path in PROFILES_DIR.glob("*.toml")}
 
     missing = set(EXPECTED_NAMES) - actual_files
     unexpected = actual_files - set(EXPECTED_NAMES)
@@ -36,7 +37,7 @@ def main() -> int:
 
     names: dict[str, str] = {}
     for filename, expected_name in EXPECTED_NAMES.items():
-        path = ROOT / filename
+        path = PROFILES_DIR / filename
         if not path.exists():
             continue
 
