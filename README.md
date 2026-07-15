@@ -20,17 +20,17 @@ The Markdown files under [`claude/`](claude/) are [Claude Code custom subagents]
 
 | Role | Codex configuration | Cursor configuration | Claude Code configuration | Permissions |
 | --- | --- | --- | --- | --- |
-| Planner | [`codex/planner.toml`](codex/planner.toml), `planner` | [`cursor/planner.md`](cursor/planner.md), `planner` | [`claude/planner.md`](claude/planner.md), `planner` | Read-only |
-| Executor | [`codex/executor.toml`](codex/executor.toml), `executor` | [`cursor/executor.md`](cursor/executor.md), `executor` | [`claude/executor.md`](claude/executor.md), `executor` | Write-enabled |
-| Small task | [`codex/small-task.toml`](codex/small-task.toml), `small_task` | [`cursor/small-task.md`](cursor/small-task.md), `small-task` | [`claude/small-task.md`](claude/small-task.md), `small-task` | Write-enabled |
-| Adversarial reviewer | [`codex/adversarial-review.toml`](codex/adversarial-review.toml), `adversarial_reviewer` | [`cursor/adversarial-reviewer.md`](cursor/adversarial-reviewer.md), `adversarial-reviewer` | [`claude/adversarial-reviewer.md`](claude/adversarial-reviewer.md), `adversarial-reviewer` | Read-only |
+| Planning | [`codex/planning.toml`](codex/planning.toml), `planning` | [`cursor/planning.md`](cursor/planning.md), `planning` | [`claude/planning.md`](claude/planning.md), `planning` | Read-only |
+| Implementation | [`codex/implementation.toml`](codex/implementation.toml), `implementation` | [`cursor/implementation.md`](cursor/implementation.md), `implementation` | [`claude/implementation.md`](claude/implementation.md), `implementation` | Write-enabled |
+| Small task | [`codex/small-task.toml`](codex/small-task.toml), `small-task` | [`cursor/small-task.md`](cursor/small-task.md), `small-task` | [`claude/small-task.md`](claude/small-task.md), `small-task` | Write-enabled |
+| Adversarial review | [`codex/adversarial-review.toml`](codex/adversarial-review.toml), `adversarial-review` | [`cursor/adversarial-review.md`](cursor/adversarial-review.md), `adversarial-review` | [`claude/adversarial-review.md`](claude/adversarial-review.md), `adversarial-review` | Read-only |
 | Escalation | [`codex/escalation.toml`](codex/escalation.toml), `escalation` | [`cursor/escalation.md`](cursor/escalation.md), `escalation` | [`claude/escalation.md`](claude/escalation.md), `escalation` | Write-enabled |
 
 ## Usage
 
-Choose the configuration whose role matches the work. Planning and adversarial review are non-editing roles. Implementation roles make focused changes and run targeted validation; the executor also coordinates other agents and owns final validation.
+Choose the configuration whose scope matches the work. Planning and adversarial review are non-editing scopes. Implementation and small-task configurations make focused changes and run targeted validation; implementation also coordinates other agents and owns final validation.
 
-Codex can delegate to these agents when their descriptions match the task or when the user requests a specific role. Cursor also uses each frontmatter `description` to decide automatic delegation, and users can invoke a Cursor subagent explicitly with `/planner`, `/executor`, `/small-task`, `/adversarial-reviewer`, or `/escalation`.
+Codex can delegate to these agents when their descriptions match the task or when the user requests a specific scope. Cursor also uses each frontmatter `description` to decide automatic delegation, and users can invoke a Cursor subagent explicitly with `/planning`, `/implementation`, `/small-task`, `/adversarial-review`, or `/escalation`.
 
 Claude Code uses each frontmatter `description` to decide delegation. Users can request a role by name, select it with an `@`-mention, or run an entire session with `claude --agent <name>`.
 
@@ -38,10 +38,10 @@ Subagents start with isolated context. The parent agent must provide the origina
 
 ## Routing
 
-- Small tasks may use `small_task` after confirming the change is isolated and
+- Small tasks may use `small-task` after confirming the change is isolated and
   low risk.
-- Normal tasks invoke `planner` before implementation.
-- Hard tasks use `planner`, implementation, one evidence-based repair, replanning through `planner` with the complete evidence bundle, revised implementation, and then `adversarial_reviewer`. Codex and Cursor use Luna for implementation and Terra for replanning; Claude Code uses Sonnet for implementation and Opus for replanning.
+- Normal tasks invoke `planning` before implementation.
+- Hard tasks use `planning`, implementation, one evidence-based repair, replanning through `planning` with the complete evidence bundle, revised implementation, and then `adversarial-review`. Codex and Cursor use Luna for implementation and Terra for replanning; Claude Code uses Sonnet for implementation and Opus for replanning.
 - Use `escalation` only after that recovery sequence fails, except for
   substantial security, data-loss, data-integrity, or irreversible migration
   risk.
@@ -55,7 +55,7 @@ git clone https://github.com/hernang87/codex-agents.git
 cd codex-agents
 ```
 
-Review agent instructions before installing them. The executor, small-task, and escalation roles can modify files inside the active workspace.
+Review agent instructions before installing them. The implementation, small-task, and escalation scopes can modify files inside the active workspace.
 
 ### Install for OpenAI Codex
 
@@ -136,16 +136,16 @@ python3 scripts/validate.py
 ### OpenAI Codex guidance
 
 - Keep the `name`, `description`, model settings, sandbox mode, and `developer_instructions` consistent with the role described in this README.
-- Preserve `read-only` sandbox mode for the planner and adversarial reviewer.
-- Preserve `workspace-write` sandbox mode for the executor, small-task, and escalation roles.
+- Preserve `read-only` sandbox mode for planning and adversarial review.
+- Preserve `workspace-write` sandbox mode for implementation, small-task, and escalation.
 - Match model and reasoning effort to the role: use deeper reasoning for planning, review, and escalation, and a balanced setting for isolated small tasks.
-- Keep executor coordination, validation-failure handling, final diff review, and completion reporting explicit.
+- Keep implementation coordination, validation-failure handling, final diff review, and completion reporting explicit.
 
 ### Cursor guidance
 
 - Keep YAML frontmatter limited to supported Cursor fields and use lowercase, hyphenated subagent names.
 - Write specific `description` values because Cursor uses them to decide when to delegate.
-- Preserve `readonly: true` for the planner and adversarial reviewer and `readonly: false` for implementation roles.
+- Preserve `readonly: true` for planning and adversarial review and `readonly: false` for implementation scopes.
 - Keep prompts concise, focused, and complete enough for a subagent with no parent conversation history.
 - Use supported Cursor model IDs and model parameters, and account for team restrictions or plan limitations that can cause model fallback.
 
@@ -153,6 +153,6 @@ python3 scripts/validate.py
 
 - Keep `name` and `description` present, use unique lowercase hyphenated names, and keep each description specific enough for reliable delegation.
 - Restrict the `tools` allowlist to the capabilities each role needs. Read-only roles receive `Read`, `Grep`, `Glob`, and `Bash`; implementation roles additionally receive write tools.
-- Preserve `permissionMode: plan` for the planner and adversarial reviewer and `permissionMode: default` for implementation roles.
-- Preserve the executor's `Agent` tool only while it remains responsible for coordinating distinct nested work.
+- Preserve `permissionMode: plan` for planning and adversarial review and `permissionMode: default` for implementation scopes.
+- Preserve the implementation configuration's `Agent` tool only while it remains responsible for coordinating distinct nested work.
 - Match Claude model and effort settings to the role, and keep prompts complete because custom subagents start with isolated context.

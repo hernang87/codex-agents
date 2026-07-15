@@ -1,4 +1,4 @@
-name = "adversarial_reviewer"
+name = "adversarial-review"
 description = "Read-only adversarial reviewer that challenges plans and implementations before completion."
 
 model = "gpt-5.6-luna"

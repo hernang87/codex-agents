@@ -8,11 +8,11 @@ import tomllib
 ROOT = Path(__file__).resolve().parent.parent
 PROFILES_DIR = ROOT / "codex"
 EXPECTED_NAMES = {
-    "adversarial-review.toml": "adversarial_reviewer",
+    "adversarial-review.toml": "adversarial-review",
     "escalation.toml": "escalation",
-    "executor.toml": "executor",
-    "planner.toml": "planner",
-    "small-task.toml": "small_task",
+    "implementation.toml": "implementation",
+    "planning.toml": "planning",
+    "small-task.toml": "small-task",
 }
 REQUIRED_KEYS = {
     "name",

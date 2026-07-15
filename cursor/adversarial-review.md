@@ -1,5 +1,5 @@
 ---
-name: adversarial-reviewer
+name: adversarial-review
 description: Independently challenges plans and implementations. Use after cross-cutting, stateful, asynchronous, persistent, security-sensitive, migration, or pull-request work.
 model: gpt-5.6-luna[effort=high]
 readonly: true
