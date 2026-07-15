@@ -21,6 +21,21 @@ review are non-editing roles. Implementation roles make focused changes and
 run targeted validation; `executor` also coordinates other agents and owns
 final validation.
 
+## Install
+
+Install the TOML files by placing or cloning them into the Codex agents
+directory, commonly `~/.codex/agents`:
+
+```sh
+git clone https://github.com/OWNER/REPOSITORY.git ~/.codex/agents
+```
+
+To copy the files from an existing checkout instead:
+
+```sh
+cp *.toml ~/.codex/agents/
+```
+
 ## Maintenance
 
 - Keep each configuration focused on one role and avoid unrelated cleanup.
