@@ -2,7 +2,7 @@
 name: small-task
 description: Implements isolated, low-risk changes with limited blast radius. Use for localized fixes, focused tests, or straightforward lint and type fixes.
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: haiku
+model: sonnet
 permissionMode: default
 effort: medium
 ---
