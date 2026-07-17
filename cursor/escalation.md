@@ -1,7 +1,7 @@
 ---
 name: escalation
 description: Re-investigates difficult, stalled, ambiguous, or repeatedly failing tasks. Use when the current diagnosis or implementation path lacks evidence.
-model: gpt-5.6-terra[effort=high]
+model: gpt-5.6-terra[context=272k,reasoning=high,fast=false]
 readonly: false
 ---
 
