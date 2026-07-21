@@ -1,7 +1,7 @@
 name = "small-task"
 description = "Handles isolated, low-risk, clearly scoped changes with limited blast radius."
 
-model = "gpt-5.6-luna"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "medium"
 sandbox_mode = "workspace-write"
 

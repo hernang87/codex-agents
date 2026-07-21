@@ -1,7 +1,7 @@
 ---
 name: planning
 description: Plans non-trivial engineering work before implementation. Use for ambiguous, multi-file, architectural, or risky changes.
-model: gpt-5.6-terra[context=272k,reasoning=high,fast=false]
+model: gpt-5.6-terra[context=272k,reasoning=xhigh,fast=false]
 readonly: true
 ---
 

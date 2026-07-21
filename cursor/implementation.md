@@ -1,7 +1,7 @@
 ---
 name: implementation
 description: Implements approved plans and owns validation. Use for non-trivial changes after the implementation path is understood.
-model: gpt-5.6-terra[context=272k,reasoning=medium,fast=false]
+model: gpt-5.6-terra[context=272k,reasoning=high,fast=false]
 readonly: false
 ---
 
@@ -28,7 +28,7 @@ Implementation rules:
 Agent coordination:
 - For normal tasks, use `planning` before implementation even when the affected files initially appear familiar.
 - Use `small-task` only for isolated, low-risk work that can be delegated without fragmenting ownership.
-- For hard tasks, use `planning`, the strongest available Luna implementation, one evidence-based repair attempt, `planning` again for Terra replanning with the complete evidence bundle, revised implementation, and then `adversarial-review`.
+- For hard tasks, use `planning`, the strongest available Terra implementation, one evidence-based repair attempt, `planning` again for Terra replanning with the complete evidence bundle, revised implementation, and then `adversarial-review`.
 - Use `adversarial-review` after cross-cutting, stateful, asynchronous, persistent, security-sensitive, migration, or pull-request work.
 - Use `escalation` only after the hard-task recovery sequence fails, or immediately for substantial security, data-loss, data-integrity, or irreversible migration risk.
 - Give delegated agents the original requirements, relevant plan, current changes, commands and tests run, complete failures, and unresolved assumptions. Review all delegated work before accepting it.

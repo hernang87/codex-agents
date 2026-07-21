@@ -41,7 +41,7 @@ Subagents start with isolated context. The parent agent must provide the origina
 - Small tasks may use `small-task` after confirming the change is isolated and
   low risk.
 - Normal tasks invoke `planning` before implementation.
-- Hard tasks use `planning`, implementation, one evidence-based repair, replanning through `planning` with the complete evidence bundle, revised implementation, and then `adversarial-review`. Codex and Cursor use Luna for implementation and Terra for replanning; Claude Code uses Sonnet for implementation and Opus for replanning.
+- Hard tasks use `planning`, implementation, one evidence-based repair, replanning through `planning` with the complete evidence bundle, revised implementation, and then `adversarial-review`. Codex and Cursor use Terra for planning, implementation, and adversarial review, with Sol for escalation; Claude Code uses Sonnet for implementation and Opus for replanning.
 - Use `escalation` only after that recovery sequence fails, except for
   substantial security, data-loss, data-integrity, or irreversible migration
   risk.
@@ -69,12 +69,12 @@ reasoning-token treatment, cache eligibility and hit-rate assumptions, and
 whether the prices apply to the API or an application subscription. Do not
 change the role assignments based on token price alone:
 
-- `small_task` uses Luna with medium reasoning for cheap, isolated work.
-- `planner` uses Terra with high reasoning when better planning can reduce
+- `small-task` uses Terra with medium reasoning for isolated work.
+- `planning` uses Terra with xhigh reasoning when better planning can reduce
   implementation rework.
-- `executor` uses Luna with high reasoning for the normal implementation path.
-- `adversarial_reviewer` uses Luna with max reasoning only for risk-gated work.
-- `escalation` uses Terra with xhigh reasoning only as a rare recovery path.
+- `implementation` uses Terra with high reasoning for the normal implementation path.
+- `adversarial-review` uses Terra with xhigh reasoning only for risk-gated work.
+- `escalation` uses Sol with high reasoning only as a rare recovery path.
 
 ## Install
 

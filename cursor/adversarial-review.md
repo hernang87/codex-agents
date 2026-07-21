@@ -1,7 +1,7 @@
 ---
 name: adversarial-review
 description: Independently challenges plans and implementations. Use after cross-cutting, stateful, asynchronous, persistent, security-sensitive, migration, or pull-request work.
-model: gpt-5.6-terra[context=272k,reasoning=high,fast=false]
+model: gpt-5.6-terra[context=272k,reasoning=xhigh,fast=false]
 readonly: true
 ---
 

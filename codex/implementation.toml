@@ -1,7 +1,7 @@
 name = "implementation"
 description = "Primary implementation agent that executes approved plans, coordinates specialized agents, and owns final validation."
 
-model = "gpt-5.6-luna"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 
@@ -44,7 +44,7 @@ Agent coordination:
   affected files initially appear familiar.
 - Use `small-task` only for isolated, low-risk work that can be delegated
   without fragmenting ownership.
-- For hard tasks, follow this sequence: `planning`, strongest Luna
+- For hard tasks, follow this sequence: `planning`, strongest available Terra
   implementation, one evidence-based repair attempt, `planning` again for Terra
   replanning with the complete evidence bundle, revised implementation, then
   `adversarial-review`.

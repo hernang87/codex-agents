@@ -1,7 +1,7 @@
 ---
 name: small-task
 description: Implements isolated, low-risk changes with limited blast radius. Use for localized fixes, focused tests, or straightforward lint and type fixes.
-model: gpt-5.6-luna[context=272k,reasoning=medium,fast=false]
+model: gpt-5.6-terra[context=272k,reasoning=medium,fast=false]
 readonly: false
 ---
 
