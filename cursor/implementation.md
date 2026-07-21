@@ -1,7 +1,7 @@
 ---
 name: implementation
 description: Implements approved plans and owns validation. Use for non-trivial changes after the implementation path is understood.
-model: gpt-5.6-luna[context=272k,reasoning=high,fast=false]
+model: gpt-5.6-terra[context=272k,reasoning=medium,fast=false]
 readonly: false
 ---
 
